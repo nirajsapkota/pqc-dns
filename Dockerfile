@@ -4,6 +4,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ARG TZ=Australia/Sydney
 
+ENV LD_LIBRARY_PATH=/usr/local/lib
+
 WORKDIR /
 
 RUN apt update -y               \
@@ -14,8 +16,7 @@ RUN wget https://github.com/nirajsapkota/pqc-bind/releases/latest/download/pqc-b
         && mkdir pqc-bind                                                               \
         && unzip pqc-bind.zip -d pqc-bind                                               \
         && rsync -a pqc-bind/* /usr/local/                                              \
-        && rm -rf pqc-bind pqc-bind.zip                                                 \
-        && ldconfig      
+        && rm -rf pqc-bind pqc-bind.zip
 
 RUN wget https://github.com/nirajsapkota/pqc-dns-sidecar/releases/latest/download/pqc-dns-sidecar-linux-amd64       \
         && chmod +x pqc-dns-sidecar-linux-amd64                                                                     \
