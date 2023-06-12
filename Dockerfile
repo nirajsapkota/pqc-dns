@@ -17,9 +17,9 @@ RUN wget https://github.com/nirajsapkota/pqc-bind/releases/latest/download/pqc-b
         && rm -rf pqc-bind pqc-bind.zip                                                 \
         && ldconfig      
 
-RUN wget https://github.com/nirajsapkota/pqc-dns-sidecar/releases/latest/download/pqc-dns-sidecar       \
-        && chmod +x pqc-dns-sidecar                                                                     \
-        && mv pqc-dns-sidecar /usr/local/bin
+RUN wget https://github.com/nirajsapkota/pqc-dns-sidecar/releases/latest/download/pqc-dns-sidecar-linux-amd64       \
+        && chmod +x pqc-dns-sidecar-linux-amd64                                                                     \
+        && mv pqc-dns-sidecar-linux-amd64 /usr/local/bin
 
 # Todo: Run the pqc-dns-sidecar
 # Todo: Configure iptables
