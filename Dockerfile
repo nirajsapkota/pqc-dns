@@ -10,7 +10,7 @@ WORKDIR /
 
 RUN apt update -y               \
         && apt upgrade -y       \
-        && apt install wget unzip rsync libssl-dev libuv1-dev libnghttp2-dev libtool libcap-dev libnetfilter-queue-dev -y
+        && apt install wget unzip rsync libssl-dev libuv1-dev libnghttp2-dev libtool libcap-dev libnetfilter-queue-dev iptables -y
 
 RUN wget https://github.com/nirajsapkota/pqc-bind/releases/latest/download/pqc-bind.zip \
         && mkdir pqc-bind                                                               \
@@ -22,7 +22,7 @@ RUN wget https://github.com/nirajsapkota/pqc-dns-sidecar/releases/latest/downloa
         && chmod +x pqc-dns-sidecar-linux-amd64                                                                     \
         && mv pqc-dns-sidecar-linux-amd64 /usr/local/bin
 
-# Todo: Run the pqc-dns-sidecar
-# Todo: Configure iptables
-
-CMD [ "named", "-g", "-d", "3" ]
+CMD iptables -A INPUT -p ip -j NFQUEUE --queue-num 0            \
+        && iptables -A OUTPUT -p ip -j NFQUEUE --queue-num 0    \
+        && pqc-dns-sidecar-linux-amd64                          \
+        && named -g -d 3
